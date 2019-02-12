@@ -1,4 +1,4 @@
-#SNCF invoices scrapper from http://oui.sncf 
+# SNCF invoices scrapper from http://oui.sncf 
 
 Project that retrieve incoices from sncf each time a script is ran. it allows to not think to manually read emails and download files
 
@@ -21,3 +21,5 @@ Run the process in cron for exemple
 ```
 0 0 * * 0 docker run -v /path/to/store:/app/data sncf:1.0.0 pipenv run python main.py
 ```
+
+As python project is is possible to run this without docker. it is designed to be used with pipenv tool
