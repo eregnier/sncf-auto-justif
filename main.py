@@ -48,8 +48,8 @@ def login(session):
             "state": "https://www.oui.sncf"
         }
     )
-    print('send login code', response.status_code)
-    print('send login content', response.text)
+    logging.debug('send login code %s', response.status_code)
+    logging.debug('send login content %s', response.text)
 
     response = session.post(
         "https://www.oui.sncf/espaceclient/authentication/flowSignIn",
@@ -61,8 +61,8 @@ def login(session):
         }
     )
 
-    print(f'Send password code {response.status_code}')
-    print(f'Send password content {response.text}')
+    logging.debug(f'Send password code {response.status_code}')
+    logging.debug(f'Send password content {response.text}')
 
 
 def fetch_justificatory(session):
@@ -75,7 +75,7 @@ def fetch_justificatory(session):
             "_": str(int(time.time() * 1000))
         }
     )
-    print('Justificatory reponse code {}'.format(response.status_code))
+    logging.debug('Justificatory reponse code %s', response.status_code)
     assert response.status_code == 200
     return response.text
 
@@ -87,7 +87,6 @@ def parse_justificatory(justificatory, db):
         if ticket_id not in db:
             link = d(ticket).find('a').attr('href')
             date = slugify(d(ticket).find('.texte--droite').text())
-            print(date.split('.')[0])
             if '/vsc/aftersale' in link:
                 try:
                     filepath = f'data/{ticket_id}-{date}.pdf'
